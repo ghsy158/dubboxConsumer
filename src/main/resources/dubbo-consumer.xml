@@ -9,12 +9,11 @@
             http://www.springframework.org/schema/util
             http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
-	<!-- <util:properties id="zcparams" location="classpath:params.properties"></util:properties> -->
-	<dubbo:application name="provider" owner="programmer"
+
+	<dubbo:application name="dubboxConsumer" owner="programmer"
 		organization="dubbox" />
 
-	<dubbo:registry
-		address="zookeeper://192.168.1.201:2181?backup=192.168.1.202:2181,192.168.1.203:2181" />
+	<dubbo:registry address="zookeeper://localhost:2181" />
 
 	<dubbo:annotation package="com.fgh.service" />
 
@@ -22,9 +21,8 @@
 	<dubbo:protocol name="dubbo" serialization="kryo"
 		optimizer="com.fgh.util.SerializationOptimizerImpl"></dubbo:protocol>
 
-	<!-- rest -->
-	<dubbo:protocol name="rest" server="tomcat" port="8888"
-		contextpath="provider" accepts="500"></dubbo:protocol>
+	<!-- 生成远程服务接口配置 -->
+	<dubbo:reference id="userService" interface="com.fgh.service.UserService" />
 
 
 
